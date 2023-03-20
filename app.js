@@ -44,3 +44,11 @@ app.post('/api/notes', (req, res) => {
   res.json(note);
 });
     
+app.delete('/api/notes/:id', (req, res) => {
+    const { id } = req.params;
+  
+    const remNote = notes.findIndex(note => note.id ==id);
+  
+    notes.splice(remNote, 1);
+    return res.send();
+  });
