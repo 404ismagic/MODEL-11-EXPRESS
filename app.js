@@ -12,3 +12,35 @@ app.use(express.static('public'));
 
 // Unique ID
 const uniqueId = require('generate-unique-id');
+
+//Create New Note
+function createANewNote(body, notesArray) {
+    const note = body;
+    notesArray.push(note);
+    fs.writeFileSync(
+      path.join(__dirname, './db/db.json'),
+      JSON.stringify({ notes: notesArray }, null, 2)
+    );
+    return note;
+  };
+
+//Get Routes
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/notes', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+
+app.get('/api/notes', (req, res) => {
+  res.json(notes);
+});
+
+//Post Route
+app.post('/api/notes', (req, res) => {
+  req.body.id = uniqueId();
+  const note = createANewNote(req.body, notes);
+  res.json(note);
+});
+    
