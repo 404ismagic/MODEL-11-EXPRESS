@@ -52,3 +52,9 @@ app.delete('/api/notes/:id', (req, res) => {
     notes.splice(remNote, 1);
     return res.send();
   });
+
+  //Listen on port 5001
+app.listen(PORT, () => {
+    console.log(`App waiting on PORT ${PORT}`);
+  });
+ 
